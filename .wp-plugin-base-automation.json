@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "profile": "managed",
+  "files": {
+    ".github/dependabot.yml": "bb675720b871850d81d2da46cc463df7a3a1c7001005818ac0cf2e403868f56e",
+    ".github/workflows/ci.yml": "b04000ec066e607457aed57d3e22e380a862d7587349bc60b05252d569b11e0f",
+    ".github/workflows/finalize-release.yml": "6e7a61fd96766773df50d3445d42bd0fd43cacd8f09275cdd39f56d0f8e9f44b",
+    ".github/workflows/prepare-release.yml": "a819ac953ec4d895af1451ce1de75cdf406a494c5ceabd5918967908457e31d3",
+    ".github/workflows/publish-tag-release.yml": "bb79ef6680616162446d5fcad2b370605bf19d9dc57b61b623bbf113080d0125",
+    ".github/workflows/release.yml": "835b79d58011e8eb1d0ff32cdbc2506f200885c57bc2ace1d69e5af0eae9dc36",
+    ".github/workflows/update-foundation.yml": "f494b3e83f481b0a1a271548c822e08c3df2b199aaa8f56f3f6409eea769cc3c"
+  }
+}
