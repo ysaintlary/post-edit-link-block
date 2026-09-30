@@ -18,6 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define( 'POST_EDIT_LINK_BLOCK_VERSION', '1.1.0' );
+
 add_action( 'wp_enqueue_scripts', function () {
 	if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
 		wp_add_inline_style( 'wp-block-post-excerpt', '.pelb-edit-link { margin-left: 1rem; }' );
