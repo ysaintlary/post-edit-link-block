@@ -30,11 +30,11 @@ $json = static fn(string $value): string => json_encode($value, JSON_THROW_ON_ER
 
 // This restricted Git ref is used inside authored quoted shell/YAML literals
 // and exact GitHub expressions. Validate independently before raw substitution.
-if (str_contains($content, '__DEFAULT_BRANCH__')) {
+if (false !== strpos($content, '__DEFAULT_BRANCH__')) {
     $branch = getenv('DEFAULT_BRANCH');
     $branch = (false === $branch || '' === $branch) ? 'main' : $branch;
     if ('HEAD' === $branch || !preg_match('~^[A-Za-z0-9][A-Za-z0-9._/-]*$~D', $branch)
-        || str_contains($branch, '..') || str_contains($branch, '//')
+        || false !== strpos($branch, '..') || false !== strpos($branch, '//')
         || preg_match('~(^|/)(refs|pull)(/|$)|(^|/)\\.|\\.lock(/|$)|[/.]$~', $branch)) {
         throw new RuntimeException('Unsafe default branch in template rendering.');
     }
@@ -56,12 +56,12 @@ if (preg_match('/\.php(?:\.example)?$/', $source)) {
             continue;
         }
         [$kind, $text] = $token;
-        if (T_CONSTANT_ENCAPSED_STRING === $kind && str_contains($text, '__')) {
+        if (T_CONSTANT_ENCAPSED_STRING === $kind && false !== strpos($text, '__')) {
             // All authored PHP template strings are single quoted. Refuse a new
             // interpolating context until its encoding is explicitly supported.
             if ("'" !== $text[0]) {
                 foreach (array_keys($values) as $marker) {
-                    if (str_contains($text, $marker)) {
+                    if (false !== strpos($text, $marker)) {
                         throw new RuntimeException('PHP placeholders require single-quoted literals: ' . $source);
                     }
                 }
@@ -73,7 +73,7 @@ if (preg_match('/\.php(?:\.example)?$/', $source)) {
             $text = $replace($text, static fn(string $value): string => str_replace('*/', '* /', $value));
         } else {
             foreach (array_keys($values) as $marker) {
-                if (str_contains($text, $marker)) {
+                if (false !== strpos($text, $marker)) {
                     throw new RuntimeException('Unsupported PHP placeholder context: ' . $source);
                 }
             }

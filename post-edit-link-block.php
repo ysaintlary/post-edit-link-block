@@ -5,7 +5,7 @@
  * Description:       Ajoute un lien « Modifier » à côté du lien « Ouvrir » dans les extraits d'articles, visible uniquement pour les utilisateurs connectés ayant les droits d'édition.
  * Version: 1.1.0
  * Requires at least: 6.5
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Author:            Yves Saint-Lary
  * Author URI:        https://ysaintlary.com
  * License:           GPL-3.0-or-later
