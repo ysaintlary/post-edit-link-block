@@ -3,7 +3,7 @@
  * Plugin Name:       Post Edit Link
  * Plugin URI:        https://github.com/ysaintlary/post-edit-link-block
  * Description:       Ajoute un lien « Modifier » à côté du lien « Ouvrir » dans les extraits d'articles, visible uniquement pour les utilisateurs connectés ayant les droits d'édition.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            Yves Saint-Lary
