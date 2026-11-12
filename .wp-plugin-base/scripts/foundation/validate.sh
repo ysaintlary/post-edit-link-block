@@ -40,6 +40,11 @@ if [ -z "$ASSURANCE_MODE" ]; then
   fi
 fi
 
+# The foundation owns the pack tool locks, so its own validation blocks on their
+# advisories; projects only receive a warning.
+export WP_PLUGIN_BASE_FOUNDATION_TOOL_AUDIT=strict
+unset WP_PLUGIN_BASE_ACTION_PIN_POLICY
+
 case "$ASSURANCE_MODE" in
   fast-local)
     export WP_PLUGIN_BASE_STRICT_LINTERS='false'
@@ -149,7 +154,7 @@ bash "$ROOT_DIR/scripts/foundation/check_release_branch.sh" "${current_branch:-d
 unset FOUNDATION_REPOSITORY FOUNDATION_VERSION PLUGIN_NAME PLUGIN_SLUG MAIN_PLUGIN_FILE README_FILE ZIP_FILE
 unset PHP_VERSION NODE_VERSION VERSION_CONSTANT_NAME WORDPRESS_ORG_SLUG CODEOWNERS_REVIEWERS PRODUCTION_ENVIRONMENT
 unset PHP_RUNTIME_MATRIX PHP_RUNTIME_MATRIX_MODE WORDPRESS_READINESS_ENABLED WORDPRESS_QUALITY_PACK_ENABLED
-unset PHPSTAN_MEMORY_LIMIT
+unset PHPSTAN_MEMORY_LIMIT WORDPRESS_TEST_PLUGINS
 unset WORDPRESS_SECURITY_PACK_ENABLED WOOCOMMERCE_QIT_ENABLED WP_ORG_DEPLOY_ENABLED
 unset REST_OPERATIONS_PACK_ENABLED REST_API_NAMESPACE REST_ABILITIES_ENABLED ADMIN_UI_PACK_ENABLED
 unset ADMIN_UI_STARTER ADMIN_UI_EXPERIMENTAL_DATAVIEWS
@@ -302,6 +307,8 @@ bash "$ROOT_DIR/scripts/foundation/test_temporary_wordpress_cleanup.sh"
 bash "$ROOT_DIR/scripts/foundation/test_pre_push_git_isolation.sh"
 bash "$ROOT_DIR/scripts/foundation/test_lint_pack_pruning.sh"
 bash "$ROOT_DIR/scripts/foundation/test_run_quality_pack_local_fallback.sh"
+bash "$ROOT_DIR/scripts/foundation/test_foundation_tool_audit.sh"
+node --test "$ROOT_DIR/scripts/foundation/test_wordpress_env_engines.cjs"
 bash "$ROOT_DIR/scripts/foundation/test_run_php_runtime_smoke_local_fallback.sh"
 bash "$ROOT_DIR/scripts/foundation/test_woocommerce_qit_secret_scope.sh"
 
