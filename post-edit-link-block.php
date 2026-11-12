@@ -22,30 +22,37 @@ define( 'POST_EDIT_LINK_BLOCK_VERSION', '1.1.0' );
 
 require_once __DIR__ . '/lib/wp-plugin-base/wp-plugin-base-runtime-updater.php';
 
-add_action( 'wp_enqueue_scripts', function () {
-	if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
-		wp_add_inline_style( 'wp-block-post-excerpt', '.pelb-edit-link { margin-left: 1rem; }' );
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		if ( is_user_logged_in() && current_user_can( 'edit_posts' ) ) {
+			wp_add_inline_style( 'wp-block-post-excerpt', '.pelb-edit-link { margin-left: 1rem; }' );
+		}
 	}
-} );
+);
 
-add_filter( 'render_block_core/post-excerpt', function ( $block_content ) {
-	if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) ) {
+add_filter(
+	'render_block_core/post-excerpt',
+	function ( $block_content ) {
+		if ( ! is_user_logged_in() || ! current_user_can( 'edit_posts' ) ) {
+			return $block_content;
+		}
+
+		$post_id   = get_the_ID();
+		$edit_link = get_edit_post_link( $post_id );
+		if ( ! $edit_link ) {
+			return $block_content;
+		}
+
+		$edit_anchor = sprintf(
+			' <a href="%s" class="wp-block-post-excerpt__more-link pelb-edit-link">%s</a>',
+			esc_url( $edit_link ),
+			esc_html__( 'Modifier', 'post-edit-link-block' )
+		);
+
+		$block_content = str_replace( '</p></div>', $edit_anchor . '</p></div>', $block_content );
+
 		return $block_content;
-	}
-
-	$post_id   = get_the_ID();
-	$edit_link = get_edit_post_link( $post_id );
-	if ( ! $edit_link ) {
-		return $block_content;
-	}
-
-	$edit_anchor = sprintf(
-		' <a href="%s" class="wp-block-post-excerpt__more-link pelb-edit-link">%s</a>',
-		esc_url( $edit_link ),
-		esc_html__( 'Modifier', 'post-edit-link-block' )
-	);
-
-	$block_content = str_replace( '</p></div>', $edit_anchor . '</p></div>', $block_content );
-
-	return $block_content;
-}, 10 );
+	},
+	10
+);
