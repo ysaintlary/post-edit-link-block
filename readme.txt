@@ -4,7 +4,7 @@ Tags: edit, link, excerpt, admin, editor
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,17 @@ The link is **only visible to logged-in users** who have the `edit_posts` capabi
 3. Visit your site while logged in — the "Modifier" link appears next to "Read more" in excerpts
 
 == Changelog ==
+
+= 1.1.3 =
+* Update - Release 1.1.2.
+* Fix - fix: add runtime updater require for wp-plugin-base.
+* Update - Release 1.1.1.
+* Update - chore: enable readiness/quality/security packs with PUC exclusions.
+* Update - chore: update wp-plugin-base to v1.10.15.
+* Fix - fix: normalize AGENTS.md line endings to LF.
+* Fix - fix: normalize dependabot.yml line endings to LF.
+* Fix - fix: bump PHP minimum to 8.0 and polyfill str_contains in foundation.
+
 
 = 1.1.2 =
 * Fix - fix: add runtime updater require for wp-plugin-base.
